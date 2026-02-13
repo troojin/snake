@@ -10,7 +10,6 @@
         --bg: #0e0a1a;
         --panel: #18122b;
         --accent: #8b5cf6;
-        --accentGlow: #a78bfa;
         --text: #ffffff;
         --muted: #9f8ecf;
     }
@@ -42,7 +41,6 @@
     h1 {
         font-size: 38px;
         margin-bottom: 8px;
-        letter-spacing: 1px;
     }
 
     .js {
@@ -56,26 +54,25 @@
     }
 
     .play-btn {
-        background: var(--accent);
+        background: none;
         border: none;
-        padding: 14px 32px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 8px;
         cursor: pointer;
-        color: white;
         transition: 0.25s ease;
-        box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
     }
 
-    .play-btn:hover {
-        transform: scale(1.08);
-        background: var(--accentGlow);
-        box-shadow: 0 0 35px rgba(167, 139, 250, 0.8);
+    .play-btn img {
+        width: 180px;
+        transition: 0.25s ease;
+        filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6));
     }
 
-    .play-btn:active {
-        transform: scale(0.97);
+    .play-btn:hover img {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.9));
+    }
+
+    .play-btn:active img {
+        transform: scale(0.95);
     }
 </style>
 </head>
@@ -83,8 +80,11 @@
 
 <div class="menu">
     <h1>snake<span class="js">.js</span></h1>
-    <p>Built with JavaScript • Minimal • Purple Edition</p>
-    <button class="play-btn" onclick="goToGame()">Play</button>
+    <p>Built with JavaScript • Purple Edition</p>
+
+    <button class="play-btn" onclick="goToGame()">
+        <img src="assets/play.png" alt="Play">
+    </button>
 </div>
 
 <script>
