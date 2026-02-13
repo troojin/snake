@@ -44,8 +44,9 @@
         margin-bottom: 8px;
     }
 
-    .js {
+    .brand-ext {
         color: var(--accent);
+        transition: 0.3s ease;
     }
 
     p {
@@ -55,52 +56,47 @@
     }
 
     .play-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--accent);
-    border: none;
-    padding: 14px 28px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    color: white;
-    transition: 0.25s ease;
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-}
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent);
+        border: none;
+        padding: 14px 28px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white;
+        transition: 0.25s ease;
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    }
 
-.play-btn img {
-    width: 20px;
-    height: 20px;
+    .play-btn img {
+        width: 20px;
+        height: 20px;
+        filter: brightness(0) invert(1);
+        transition: 0.25s ease;
+    }
 
-    /* Force black image to white */
-    filter: brightness(0) invert(1);
+    .play-btn:hover {
+        transform: scale(1.08);
+        background: var(--accentGlow);
+        box-shadow: 0 0 35px rgba(167, 139, 250, 0.8);
+    }
 
-    /* Subtle glow */
-    transition: 0.25s ease;
-}
+    .play-btn:hover img {
+        filter: brightness(0) invert(1) drop-shadow(0 0 6px white);
+    }
 
-.play-btn:hover {
-    transform: scale(1.08);
-    background: var(--accentGlow);
-    box-shadow: 0 0 35px rgba(167, 139, 250, 0.8);
-}
-
-.play-btn:hover img {
-    filter: brightness(0) invert(1) drop-shadow(0 0 6px white);
-}
-
-.play-btn:active {
-    transform: scale(0.96);
-}
-
+    .play-btn:active {
+        transform: scale(0.96);
+    }
 </style>
 </head>
 <body>
 
 <div class="menu">
-    <h1>snake<span class="js">.js</span></h1>
+    <h1>snake<span id="brandExt" class="brand-ext">.js</span></h1>
     <p>Built with JavaScript • Purple Edition</p>
 
     <button class="play-btn" onclick="goToGame()">
@@ -113,6 +109,34 @@
 function goToGame() {
     window.location.href = "play.html";
 }
+
+async function loadBranding() {
+    const el = document.getElementById("brandExt");
+
+    let words = [".js", ".html", ".lol", ".exe"];
+
+    try {
+        const res = await fetch("assets/branding.json", { cache: "no-store" });
+        if (res.ok) {
+            const data = await res.json();
+            if (data && Array.isArray(data.words) && data.words.length) {
+                words = data.words;
+            }
+        }
+    } catch (err) {
+        console.warn("Branding JSON failed to load. Using fallback.");
+    }
+
+    let i = Math.floor(Math.random() * words.length);
+    el.textContent = words[i];
+
+    setInterval(() => {
+        i = (i + 1) % words.length;
+        el.textContent = words[i];
+    }, 1000);
+}
+
+loadBranding();
 </script>
 
 </body>
