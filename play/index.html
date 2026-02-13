@@ -42,11 +42,39 @@
     h1 {
         font-size: 38px;
         margin-bottom: 8px;
+        font-weight: 700;
     }
 
-    .brand-ext {
+    /* ===== animated extension ===== */
+    .ext-wrap{
+        position: relative;
+        display: inline-block;
+        width: 110px;            /* adjust if you add longer extensions */
+        height: 1.1em;
+        overflow: hidden;
+        vertical-align: baseline;
+    }
+
+    .brand-ext{
+        position: absolute;
+        left: 0;
+        top: 0;
         color: var(--accent);
-        transition: 0.3s ease;
+        opacity: 0;
+        transform: translateY(12px); /* starts slightly below */
+        transition: transform 260ms ease, opacity 260ms ease;
+        will-change: transform, opacity;
+        white-space: nowrap;
+    }
+
+    .brand-ext.show{
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .brand-ext.hide-up{
+        opacity: 0;
+        transform: translateY(-14px); /* old goes up */
     }
 
     p {
@@ -74,6 +102,7 @@
     .play-btn img {
         width: 20px;
         height: 20px;
+        /* force black icon to white */
         filter: brightness(0) invert(1);
         transition: 0.25s ease;
     }
@@ -96,7 +125,14 @@
 <body>
 
 <div class="menu">
-    <h1>snake<span id="brandExt" class="brand-ext">.js</span></h1>
+    <h1>
+        snake
+        <span class="ext-wrap">
+            <span id="extA" class="brand-ext show">.js</span>
+            <span id="extB" class="brand-ext">.html</span>
+        </span>
+    </h1>
+
     <p>Built with JavaScript • Purple Edition</p>
 
     <button class="play-btn" onclick="goToGame()">
@@ -107,33 +143,56 @@
 
 <script>
 function goToGame() {
-    window.location.href = "play.html";
+  window.location.href = "play.html";
 }
 
 async function loadBranding() {
-    const el = document.getElementById("brandExt");
+  // fallback list if json fails
+  let words = [".js", ".html", ".lol", ".exe"];
 
-    let words = [".js", ".html", ".lol", ".exe"];
-
-    try {
-        const res = await fetch("assets/branding.json", { cache: "no-store" });
-        if (res.ok) {
-            const data = await res.json();
-            if (data && Array.isArray(data.words) && data.words.length) {
-                words = data.words;
-            }
-        }
-    } catch (err) {
-        console.warn("Branding JSON failed to load. Using fallback.");
+  try {
+    const res = await fetch("assets/branding.json", { cache: "no-store" });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && Array.isArray(data.words) && data.words.length) {
+        words = data.words;
+      }
     }
+  } catch (e) {
+    // keep fallback
+  }
 
-    let i = Math.floor(Math.random() * words.length);
-    el.textContent = words[i];
+  const a = document.getElementById("extA");
+  const b = document.getElementById("extB");
 
-    setInterval(() => {
-        i = (i + 1) % words.length;
-        el.textContent = words[i];
-    }, 1000);
+  let showingA = true;
+  let i = Math.floor(Math.random() * words.length);
+
+  a.textContent = words[i];
+  a.classList.add("show");
+
+  setInterval(() => {
+    i = (i + 1) % words.length;
+
+    const current = showingA ? a : b;
+    const next = showingA ? b : a;
+
+    // set next word + prep hidden below
+    next.textContent = words[i];
+    next.classList.remove("hide-up");
+    next.classList.remove("show");
+
+    // force reflow so transitions always trigger
+    void next.offsetWidth;
+
+    // old goes up/out, new comes up/in
+    current.classList.add("hide-up");
+    current.classList.remove("show");
+
+    next.classList.add("show");
+
+    showingA = !showingA;
+  }, 1000);
 }
 
 loadBranding();
