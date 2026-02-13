@@ -55,35 +55,46 @@
     }
 
     .play-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: var(--accent);
-        border: none;
-        padding: 14px 28px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 8px;
-        cursor: pointer;
-        color: white;
-        transition: 0.25s ease;
-        box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-    }
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    border: none;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    transition: 0.25s ease;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
 
-    .play-btn img {
-        width: 20px;
-        height: 20px;
-    }
+.play-btn img {
+    width: 20px;
+    height: 20px;
 
-    .play-btn:hover {
-        transform: scale(1.08);
-        background: var(--accentGlow);
-        box-shadow: 0 0 35px rgba(167, 139, 250, 0.8);
-    }
+    /* Force black image to white */
+    filter: brightness(0) invert(1);
 
-    .play-btn:active {
-        transform: scale(0.96);
-    }
+    /* Subtle glow */
+    transition: 0.25s ease;
+}
+
+.play-btn:hover {
+    transform: scale(1.08);
+    background: var(--accentGlow);
+    box-shadow: 0 0 35px rgba(167, 139, 250, 0.8);
+}
+
+.play-btn:hover img {
+    filter: brightness(0) invert(1) drop-shadow(0 0 6px white);
+}
+
+.play-btn:active {
+    transform: scale(0.96);
+}
+
 </style>
 </head>
 <body>
