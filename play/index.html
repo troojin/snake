@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Snake</title>
+<title>snake.js</title>
 
 <style>
     :root {
-        --bg: #111;
-        --panel: #1a1a1a;
-        --accent: #4caf50;
+        --bg: #0e0a1a;
+        --panel: #18122b;
+        --accent: #8b5cf6;
+        --accentGlow: #a78bfa;
         --text: #ffffff;
-        --muted: #888;
+        --muted: #9f8ecf;
     }
 
     * {
@@ -23,7 +24,7 @@
 
     body {
         height: 100vh;
-        background: var(--bg);
+        background: radial-gradient(circle at center, #1a1230 0%, #0e0a1a 70%);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -32,45 +33,57 @@
 
     .menu {
         background: var(--panel);
-        padding: 40px 60px;
-        border-radius: 14px;
+        padding: 50px 70px;
+        border-radius: 16px;
         text-align: center;
-        box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        box-shadow: 0 0 60px rgba(139, 92, 246, 0.25);
     }
 
     h1 {
-        font-size: 32px;
-        margin-bottom: 10px;
+        font-size: 38px;
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+    }
+
+    .js {
+        color: var(--accent);
     }
 
     p {
         font-size: 14px;
         color: var(--muted);
-        margin-bottom: 30px;
+        margin-bottom: 35px;
     }
 
     .play-btn {
         background: var(--accent);
         border: none;
-        padding: 14px 28px;
+        padding: 14px 32px;
         font-size: 16px;
+        font-weight: 600;
         border-radius: 8px;
         cursor: pointer;
         color: white;
-        transition: 0.2s ease;
+        transition: 0.25s ease;
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
     }
 
     .play-btn:hover {
-        transform: scale(1.05);
-        opacity: 0.9;
+        transform: scale(1.08);
+        background: var(--accentGlow);
+        box-shadow: 0 0 35px rgba(167, 139, 250, 0.8);
+    }
+
+    .play-btn:active {
+        transform: scale(0.97);
     }
 </style>
 </head>
 <body>
 
 <div class="menu">
-    <h1>Snake</h1>
-    <p>Classic arcade game</p>
+    <h1>snake<span class="js">.js</span></h1>
+    <p>Built with JavaScript • Minimal • Purple Edition</p>
     <button class="play-btn" onclick="goToGame()">Play</button>
 </div>
 
