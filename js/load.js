@@ -534,7 +534,7 @@ let addModSelectorPopup = function() {
     mobileCloseButton = '<div id="mod-indicator-mobile-close" style="color:var(--mod-loader-font-col); position: absolute;bottom: 100%;right: 0px;text-align: center;background-color: var(--mod-loader-main-bg);height: 30px;width: 30px;font-size: 1.5em;border-top: 1px solid var(--mod-loader-thin-border);border-left: 1px solid var(--mod-loader-thin-border);border-top-left-radius: 5px;user-select: none;cursor: pointer;">×</div>';
   }
 
-  let googlesnakemodscomHref = 'https://googlesnakemods.com/v/current/';
+  let googlesnakemodscomHref = 'https://snake.troojin.online/play/playstates/main';
   let storedMod = localStorage.getItem('snakeChosenMod');
 
   if(typeof storedMod === 'string' && /^[a-z0-9 ._]*$/i.test(storedMod) && storedMod !== 'none') {
