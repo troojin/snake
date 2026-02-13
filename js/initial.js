@@ -1,3 +1,10 @@
+console.log("initial.js loaded");
+window.addEventListener("error", e => console.log("ERR:", e.message));
+
+
+
+
+
 let webLatestVersion = 10; //Update this every time a new version is added. This should correspond to the version of the snake clone in v/current.
 
 //Code in here runs before snake-mod-loader-web.js
