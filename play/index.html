@@ -10,6 +10,7 @@
         --bg: #0e0a1a;
         --panel: #18122b;
         --accent: #8b5cf6;
+        --accentGlow: #a78bfa;
         --text: #ffffff;
         --muted: #9f8ecf;
     }
@@ -54,25 +55,34 @@
     }
 
     .play-btn {
-        background: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent);
         border: none;
+        padding: 14px 28px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
         cursor: pointer;
+        color: white;
         transition: 0.25s ease;
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
     }
 
     .play-btn img {
-        width: 180px;
-        transition: 0.25s ease;
-        filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6));
+        width: 20px;
+        height: 20px;
     }
 
-    .play-btn:hover img {
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.9));
+    .play-btn:hover {
+        transform: scale(1.08);
+        background: var(--accentGlow);
+        box-shadow: 0 0 35px rgba(167, 139, 250, 0.8);
     }
 
-    .play-btn:active img {
-        transform: scale(0.95);
+    .play-btn:active {
+        transform: scale(0.96);
     }
 </style>
 </head>
@@ -83,7 +93,8 @@
     <p>Built with JavaScript • Purple Edition</p>
 
     <button class="play-btn" onclick="goToGame()">
-        <img src="assets/play.png" alt="Play">
+        Play
+        <img src="assets/play.png" alt="Play Icon">
     </button>
 </div>
 
